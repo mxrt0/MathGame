@@ -17,7 +17,7 @@ namespace MathGame
             };
 
         public static readonly List<string> Results = new List<string>();
-        private static string invalidDivisionMessage = "Division of entered numbers does not produce an integer!";
+        private static string InvalidDivisionMessage = "Division of entered numbers does not produce an integer!";
         static void Main(string[] args)
         {
 
@@ -60,8 +60,8 @@ namespace MathGame
 
                     if (operationType == "divide" && firstNumber != 0 && result == 0)
                     {
-                        Console.WriteLine(invalidDivisionMessage);
-                        resolution = invalidDivisionMessage;
+                        Console.WriteLine(InvalidDivisionMessage);
+                        resolution = InvalidDivisionMessage;
                     }
                     else
                     {
@@ -71,7 +71,7 @@ namespace MathGame
 
                     var elapsedTime = Math.Round(Stopwatch.GetElapsedTime(stopwatch).TotalSeconds, 2);
 
-                    Console.WriteLine($"It took you {elapsedTime} seconds to finish this game.");
+                    Console.WriteLine($"It took you ~{elapsedTime} seconds to finish this game.");
                     Results.Add(resolution);
                     Console.Write("Would you like to play again? (Yes/No): ");
                     playAgain = Console.ReadLine().ToLower() == "yes";
@@ -91,8 +91,8 @@ namespace MathGame
                     }
                 }
             }
-            var totalElapsedTimeMinutes = Math.Round(Stopwatch.GetElapsedTime(totalTimeStopwatch).TotalMinutes, 2);
-            Console.WriteLine($"This game session took you {(totalElapsedTimeMinutes < 1 ? Math.Round(Stopwatch.GetElapsedTime(totalTimeStopwatch).TotalSeconds, 2) + " seconds" : totalElapsedTimeMinutes) + " minutes"}.");
+            var totalElapsedTimeMinutes = Math.Round(Stopwatch.GetElapsedTime(totalTimeStopwatch).TotalMinutes - 0.017, 2);
+            Console.WriteLine($"This game session took you ~{(totalElapsedTimeMinutes < 1 ? Math.Round(Stopwatch.GetElapsedTime(totalTimeStopwatch).TotalSeconds - 1, 2) + " seconds" : totalElapsedTimeMinutes) + " minutes"}.");
 
         }
     }

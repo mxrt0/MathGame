@@ -1,5 +1,7 @@
-﻿using System.Numerics;
+﻿using System.Diagnostics;
+using System.Numerics;
 using System.Security.Cryptography.X509Certificates;
+using System;
 
 namespace MathGame
 {
@@ -22,9 +24,10 @@ namespace MathGame
             Console.WriteLine("Welcome to my Math Game!");
             bool playAgain = true;
             bool showHistory = false;
-
+            var totalTimeStopwatch = Stopwatch.GetTimestamp();
             while (playAgain)
             {
+                var stopwatch = Stopwatch.GetTimestamp();
                 Console.Write("Choose an operation {Add, Subtract, Multiply, Divide}: ");
                 string operationType = Console.ReadLine().ToLower();
 
@@ -66,8 +69,11 @@ namespace MathGame
                         resolution = result.ToString();
                     }
 
+                    var elapsedTime = Math.Round(Stopwatch.GetElapsedTime(stopwatch).TotalSeconds, 2);
+
+                    Console.WriteLine($"It took you {elapsedTime} seconds to finish this game.");
                     Results.Add(resolution);
-                    Console.Write("Would you like to play again (Yes/No): ");
+                    Console.Write("Would you like to play again? (Yes/No): ");
                     playAgain = Console.ReadLine().ToLower() == "yes";
 
                     if (Results.Count > 1)
@@ -77,10 +83,17 @@ namespace MathGame
                         if (showHistory)
                         {
                             Console.WriteLine(string.Join(Environment.NewLine, Results));
+                            if (!playAgain)
+                            {
+                                Thread.Sleep(1000);
+                            }
                         }
                     }
                 }
             }
+            var totalElapsedTimeMinutes = Math.Round(Stopwatch.GetElapsedTime(totalTimeStopwatch).TotalMinutes, 2);
+            Console.WriteLine($"This game session took you {(totalElapsedTimeMinutes < 1 ? Math.Round(Stopwatch.GetElapsedTime(totalTimeStopwatch).TotalSeconds, 2) + " seconds" : totalElapsedTimeMinutes) + " minutes"}.");
+
         }
     }
 }
